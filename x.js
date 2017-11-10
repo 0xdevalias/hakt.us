@@ -34,8 +34,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
   document.domain + "<br><br>" +
   "<b>document.cookie: </b><br>" +
   document.cookie + "<br><br>\
-  <b>Vulnerable Parameters:</b><br>\
-  <span id='tssVulnParams'></span>\
+  <div id=\"tssVulnParamsContainer\" style=\"display: none;\">\
+    <b>Vulnerable Parameters:</b><br>\
+    <span id='tssVulnParams'></span>\
+  </div>\
   </div>\
     </div>\
   </div>\
@@ -46,7 +48,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function tss(paramName) {
+  var container = document.getElementById('tssVulnParamsContainer');
   var vulnParams = document.getElementById('tssVulnParams');
-  vulnParams.textContent = vulnParams.textContent + ", " + paramName;
+  
+  if (container.style.display != "block") {
+    container.style.display = "block";
+  }
+  
+  if (vulnParams.textContent == "") {
+    vulnParams.textContent = paramName;
+  }
+  else {
+    vulnParams.textContent = vulnParams.textContent + ", " + paramName;
+  }
 }
 window.xss = tss;
